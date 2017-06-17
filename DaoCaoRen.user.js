@@ -1,17 +1,20 @@
 // ==UserScript==
 // @name         DaoCaoRen
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  这是一段计算队员籍贯及星座的脚本，只有初步功能，欢迎使用，更欢迎你一起来增强代码功能！
 // @author       Rosaline Zeng (ALI)
 // @match        https://api.54traveler.com/oper/leader/*/printFee
 // @require     http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js
-// @grant        none
+// @grant        GM_addStyle
 // ==/UserScript==
 
 (function() {
    'use strict';
-
+    // 注意：粗略！粗略！粗略！计算开团后15天内队员中有过生日的人，请知悉。
+    var $DAYS = 15;
+    
+    
    $('table tbody tr').each(function(iTR, tr){
        var $license = $($('td',tr).get(5));
        $license.text( '\'' + $license.text().trim() );
@@ -27,7 +30,15 @@
        var $y = $birth.substr(0,4);
        var $m = $birth.substr(4,2);
        var $d = $birth.substr(6,2);
-       $birth_tr.text( getAstro($m, $d) + " " + getAge($y) + $birth_tr.text() );
+       var $mem_birth = $birth.substr(4,4);
+       if (isBirthday($mem_birth)) {
+           // 快过生日了
+           $birth_tr.text( getAstro($m, $d) + " " + getAge($y) + $birth_tr.text() + " 🎂");
+       }else {
+           $birth_tr.text( getAstro($m, $d) + " " + getAge($y) + $birth_tr.text() );
+       }
+       
+       
    });
     // 籍贯
     function getIcardaddress(idcard) {
@@ -60,6 +71,22 @@
         var $d = new Date();
         var $now_year = $d.getFullYear();
         return ($now_year - y);
-
+    }
+    
+    // 是否快过生日了
+    function isBirthday(member_date) {
+        // 开团日期
+        var $tuan_id = $($('h4'));
+        var $start_month = $tuan_id.text().trim().substr(6,2);
+        var $start_day = $tuan_id.text().trim().substr(8,2);
+        var $member_month = member_date.substr(0,2);
+        var $member_day = member_date.substr(2,2);
+        if ($start_month == $member_month && $member_day - $start_day < $DAYS && ($member_day - $start_day) > 0) {
+            return true;
+        } else if ( ($member_month - $start_month) == 1 && ($member_day - $start_day + 30) < $DAYS && ($member_day - $start_day + 30) > 0){
+            return true;
+        } else {
+            return false;
+        }
     }
 })();
