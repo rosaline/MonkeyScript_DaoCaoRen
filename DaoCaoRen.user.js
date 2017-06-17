@@ -81,9 +81,9 @@
         var $start_day = $tuan_id.text().trim().substr(8,2);
         var $member_month = member_date.substr(0,2);
         var $member_day = member_date.substr(2,2);
-        if ($start_month == $member_month && $member_day - $start_day < $DAYS && ($member_day - $start_day) > 0) {
+        if ($start_month == $member_month && $member_day - $start_day <= $DAYS && ($member_day - $start_day) >= 0) {
             return true;
-        } else if ( ($member_month - $start_month) == 1 && ($member_day - $start_day + 30) < $DAYS && ($member_day - $start_day + 30) > 0){
+        } else if ( ($member_month - $start_month) == 1 && ($member_day - $start_day + 30) <= $DAYS && ($member_day - $start_day + 30) >= 0){
             return true;
         } else {
             return false;
