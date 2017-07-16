@@ -13,8 +13,8 @@
    'use strict';
     // 注意：计算开团后15天内队员中有过生日的人，请知悉。
     
-    var $DEFAULT = 2;
-    var days = window.prompt("出队天数：(请输入1-31之内的数字，如果输入其他的值那默认就用" + $DEFAULT + "天呐)", $DEFAULT);
+    var $DEFAULT = 15;
+    var days = window.prompt("出队天数：(请输入1-31之内的数字，默认" + $DEFAULT + "天哟，为了计算队员生日哒)", $DEFAULT);
     var $DAYS = validateDays(days);
     
    $('table tbody tr').each(function(iTR, tr){
