@@ -12,8 +12,10 @@
 (function() {
    'use strict';
     // 注意：计算开团后15天内队员中有过生日的人，请知悉。
-    var $DAYS = 15;
     
+    var $DEFAULT = 2;
+    var days = window.prompt("出队天数：(请输入1-31之内的数字，如果输入其他的值那默认就用" + $DEFAULT + "天呐)", $DEFAULT);
+    var $DAYS = validateDays(days);
     
    $('table tbody tr').each(function(iTR, tr){
        var $license = $($('td',tr).get(5));
@@ -104,5 +106,13 @@
         newDate.setDate(newString.substr(2,2));
         
         return newDate;
+    }
+    
+    function validateDays($days) {
+        if($days > 0 && $days < 32) {
+            return $days;
+        } else {
+            return $DEFAULT;
+        }
     }
 })();
