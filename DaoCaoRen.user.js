@@ -4,7 +4,7 @@
 // @version      0.3
 // @description  这是一段计算队员籍贯及星座的脚本，只有初步功能，欢迎使用，更欢迎你一起来增强代码功能！
 // @author       Rosaline Zeng (ALI)
-// @match        https://api.54traveler.com/oper/leader/*/printFee
+// @match        https://api.54traveler.com/oper/leader/C*/printFee
 // @require     http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js
 // @grant        GM_addStyle
 // ==/UserScript==
